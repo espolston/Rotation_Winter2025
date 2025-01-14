@@ -1,0 +1,6 @@
+#Rotation Winter 2025
+#Using phenotypic and genetic data from Kreiner 2022 Evolution Paper
+
+##Part 1 - CMH Scan with new reference genome
+#Julia already called and aligned new snps to new reference
+#Need to merge across scaffolds and do CMH scan
