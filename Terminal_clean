@@ -1,0 +1,7 @@
+#Gzip and index drought vcf before running on slurm
+module load htslib
+bgzip -c /cds3/kreiner/drought/raw/merged.vcf > /scratch/midway3/espolston/merged.vcf.gz
+tabix -p vcf /scratch/midway3/espolston/merged.vcf.gz
+
+#Run merge of drought and common garden exps vcfs
+sbatch ./1_merged.sbatch
