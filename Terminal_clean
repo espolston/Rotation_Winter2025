@@ -12,6 +12,9 @@ module load htslib
 bgzip -c /scratch/midway3/espolston/fixed_commongarden_allfiltsnps_193_hap2.vcf > /scratch/midway3/espolston/final_fixed_commongarden_allfiltsnps_193_hap2.vcf.gz
 tabix -p vcf /scratch/midway3/espolston/final_fixed_commongarden_allfiltsnps_193_hap2.vcf.gz
 
+#Had same error so means I didn't remove right part (job name = rem_tag)
+sbatch ./pre_remove.sbatch
+
 #Run merge of drought and common garden exps vcfs (job name = drought_common)
 sbatch ./1_merged.sbatch
 
