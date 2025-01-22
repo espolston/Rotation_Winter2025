@@ -3,6 +3,15 @@ module load htslib
 bgzip -c /cds3/kreiner/drought/raw/merged.vcf > /scratch/midway3/espolston/merged.vcf.gz
 tabix -p vcf /scratch/midway3/espolston/merged.vcf.gz
 
+#Had error in bcftools merge (1_mergeded.sbatch) and removed error line and had to zip file before rerunning
+cp /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf.gz /scratch/midway3/espolston/
+bcftools annotate -x Scaffold_10:47672,INFO/DP,FORMAT/DP /scratch/midway3/espolston/commongarden_allfiltsnps_193_hap2.vcf.gz > /scratch/midway3/espolston/fixed_commongarden_allfiltsnps_193_hap2.vcf
+
+#gzip new file
+module load htslib
+bgzip -c /scratch/midway3/espolston/fixed_commongarden_allfiltsnps_193_hap2.vcf > /scratch/midway3/espolston/final_fixed_commongarden_allfiltsnps_193_hap2.vcf.gz
+tabix -p vcf /scratch/midway3/espolston/final_fixed_commongarden_allfiltsnps_193_hap2.vcf.gz
+
 #Run merge of drought and common garden exps vcfs (job name = drought_common)
 sbatch ./1_merged.sbatch
 
