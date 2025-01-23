@@ -1,9 +1,36 @@
+#CMH Scan
+
+#SNPs called with new reference genome from 2022 common garden: /project/kreiner/pairedenv_commongarden/
+	#Files:
+		#Sig snps w new ref genome for me to use: commongarden_allfiltsnps_193_hap2.vcf.gz
+		#oldgenome_CMH result folder has old CMH scan with old genome
+		
+#SNPs with new ref genome from drought experiment: /cds3/kreiner/drought/
+	#Files:
+		#Scaffolded, nonmerged snps from each scaffold: raw/*
+		#Merged snps: vcf_dont_touch/ 
+			#In merged file "scaffold_1" will just be "1" in the vcf
+    #merged drought with scaffold: /cds3/kreiner/drought/raw/merged.vcf
+				
+#Run CMH scan on new ref snps to see effect of new reference with longer reads
+#Run CMH scan on new ref snps + drought experiment snps to see effect of larger sample size
+
+#Using:
+#/cds3/kreiner/drought/raw/merged.vcf (Scaffold_# and merged all scaffolds of drought exp)
+#/project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf.gz (Scaffold_#)
+
+#"The Cochran-Mantel-Haenszel (CMH) tests are valid with both a large number of small clusters and a small number of large clusters. These tests provide a test based on an "average" odds ratio that controls for the potential confounding due to the cluster variable." (https://zzz.bwh.harvard.edu/plink/anal.shtml)
+#"To use the Cochran–Mantel–Haenszel test when you have data from  2×2
+  tables that you've repeated at different times or locations. It will tell you whether you have a consistent difference in proportions across the repeats." (https://stats.libretexts.org/Bookshelves/Applied_Statistics/Biological_Statistics_(McDonald)/02%3A_Tests_for_Nominal_Variables/2.10%3A_Cochran-Mantel-Haenszel_Test)
+
 #Gzip and index drought vcf before running on slurm
 module load htslib
 bgzip -c /cds3/kreiner/drought/raw/merged.vcf > /scratch/midway3/espolston/merged.vcf.gz
 tabix -p vcf /scratch/midway3/espolston/merged.vcf.gz
 
 #Had error in bcftools merge (1_mergeded.sbatch) and removed error line and had to zip file before rerunning
+#error: bcftools merge /scratch/midway3/espolston/merged.vef.gz /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf.gz -o /scratch/midway3/espolston/commongarden_drought_merged.vcf
+Incorrect number of FORMAT/AD values at Scaffold_10:47672, cannot merge. The tag is defined as Number=R, but found 3 values and 2 alleles. See also http://samtools-github.io/bcftools/howtos/FAQ.html#incorrect-nfields
 cp /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf.gz /scratch/midway3/espolston/
 bcftools annotate -x Scaffold_10:47672,INFO/DP,FORMAT/DP /scratch/midway3/espolston/commongarden_allfiltsnps_193_hap2.vcf.gz > /scratch/midway3/espolston/fixed_commongarden_allfiltsnps_193_hap2.vcf
 
@@ -17,6 +44,10 @@ sbatch ./pre_remove.sbatch
 
 #Think this is what actually will remove the line
 sbatch ./rem.sbatch
+
+#Check removed
+sbatch ./count.sbatch
+#confirmed it was removed but when running 1_merged.sbatch new site comes up - need to write 
 
 #Run merge of drought and common garden exps vcfs (job name = drought_common)
 sbatch ./1_merged.sbatch
