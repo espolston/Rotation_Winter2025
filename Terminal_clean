@@ -1,0 +1,13 @@
+#Gzip and index drought vcf before running on slurm
+module load htslib
+bgzip -c /cds3/kreiner/drought/raw/merged.vcf > /scratch/midway3/espolston/merged.vcf.gz
+tabix -p vcf /scratch/midway3/espolston/merged.vcf.gz
+
+#Removing errors with FORMAT/AD values
+
+
+#Run merge of drought and common garden exps vcfs (job name = drought_common)
+sbatch ./1_merged.sbatch
+
+#Run CMH on both merged and only common garden (job name = drought_common_plink)
+sbatch ./2_cmhscan.sbatch
