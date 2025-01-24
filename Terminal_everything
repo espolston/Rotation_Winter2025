@@ -49,6 +49,13 @@ sbatch ./rem.sbatch
 sbatch ./count.sbatch
 #confirmed it was removed but when running 1_merged.sbatch new site comes up - need to write 
 
+#Julia found error: "aha! i think i realized where the issue is coming from
+I used bcftools view --regions "Scaffold_10" commongarden_allfiltsnps_193_hap2.vcf.gz > scaf10check to quickly print a subset of scaffold 10
+those rows have phased genotype calls (you can tell cause the are 0|0 as opposed to 0/1)
+I think the counts row in those cases are counts of the alternative haplotypes, as opposed to counts of the alternative allele (and indeed, the site is biallelic)"
+
+
+
 #Run merge of drought and common garden exps vcfs (job name = drought_common)
 sbatch ./1_merged.sbatch
 
