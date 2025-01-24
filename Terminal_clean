@@ -1,13 +1,19 @@
-#Gzip and index drought vcf before running on slurm
+##Gzip and index drought vcf before running on slurm
 module load htslib
 bgzip -c /cds3/kreiner/drought/raw/merged.vcf > /scratch/midway3/espolston/merged.vcf.gz
 tabix -p vcf /scratch/midway3/espolston/merged.vcf.gz
 
-#Removing errors with FORMAT/AD values
+##Removing errors with FORMAT/AD values
+# print the header
+bcftools view -h /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf.gz > header.txt
+vim header.txt
+#i > edit Number = R to Number =. > esc > :wq
+# replace the header
+bcftools reheader -h /scratch/midway3/espolston/header.txt -o /project/kreiner/pairedenv_commongarden/fixed_commongarden_allfiltsnps_193_hap2.vcf /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf.gz
+sbatch ./fix.sbatch
 
-
-#Run merge of drought and common garden exps vcfs (job name = drought_common)
+##Run merge of drought and common garden exps vcfs (job name = drought_common)
 sbatch ./1_merged.sbatch
 
-#Run CMH on both merged and only common garden (job name = drought_common_plink)
+##Run CMH on both merged and only common garden (job name = drought_common_plink)
 sbatch ./2_cmhscan.sbatch
