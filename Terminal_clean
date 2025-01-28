@@ -5,15 +5,20 @@ tabix -p vcf /scratch/midway3/espolston/merged.vcf.gz
 
 ##Removing errors with FORMAT/AD values
 # print the header
-bcftools view -h /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf.gz > header.txt
+bcftools view -h /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf > header.txt
 vim header.txt
 #i > edit Number = R to Number =. > esc > :wq
-# replace the header
-bcftools reheader -h /scratch/midway3/espolston/header.txt -o /project/kreiner/pairedenv_commongarden/fixed_commongarden_allfiltsnps_193_hap2.vcf /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf.gz
-sbatch ./fix.sbatch
+# replace the header and bgzip
+sbatch ./fix.sbatch #just reran here after dropping gzipped vcf
 
 ##Run merge of drought and common garden exps vcfs (job name = drought_common)
 sbatch ./1_merged.sbatch
 
 ##Run CMH on both merged and only common garden (job name = drought_common_plink)
 sbatch ./2_cmhscan.sbatch
+
+
+#Try to use /cds3/kreiner/drought/vcf_dont_touch/merged_numericChr.vcf.gz bc --allow_extra_chrom may be working wrong
+cp /cds3/kreiner/drought/vcf_dont_touch/merged_numericChr.vcf.gz /scratch/midway3/espolston/
+gzip -dk /scratch/midway3/espolston/merged_numericChr.vcf.gz
+
