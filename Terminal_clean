@@ -25,9 +25,11 @@ bcftools reheader -h /scratch/midway3/espolston/header_drought.txt -o /scratch/m
 #bgzip and index new files
 sbatch ./fix.sbatch
 
-
 ##Run merge of drought and common garden exps vcfs (job name = drought_common)
 sbatch ./1_merged.sbatch
+
+
+#HERE - make a file that edits fam file 
 
 ##Run CMH on both merged and only common garden (job name = drought_common_plink)
 sbatch ./2_cmhscan.sbatch
