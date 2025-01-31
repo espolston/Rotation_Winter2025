@@ -8,21 +8,15 @@ tabix -p vcf /scratch/midway3/espolston/merged.vcf.gz
 conda activate /project/kreiner/espolston
 bcftools view -h /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf > /scratch/midway3/espolston/header.txt
 vim /scratch/midway3/espolston/header.txt
-#i > edit Number = R w/ AD and Number = A w/ AO to Number =. > esc > :wq
-# replace the header
-bcftools reheader -h /scratch/midway3/espolston/header.txt -o /project/kreiner/pairedenv_commongarden/fixed_commongarden_allfiltsnps_193_hap2.vcf /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf
-cp /project/kreiner/pairedenv_commongarden/fixed_commongarden_allfiltsnps_193_hap2.vcf /scratch/midway3/espolston/
-#checked number of lines with wc -l (2 more lines bc of view command added to header)
+#i > edit Number = R w/ AD and Number = A w/ AO and Number = A w/ QA to Number =. > esc > :wq
 
 #Got same error so seeing if i need to fix the drought file
 conda activate /project/kreiner/espolston
 bcftools view -h /scratch/midway3/espolston/merged.vcf > /scratch/midway3/espolston/header_drought.txt
 vim /scratch/midway3/espolston/header_drought.txt
-#i > edit Number = R w/ AD and Number = A w/ AO to Number =. > esc > :wq
-# replace the header
-bcftools reheader -h /scratch/midway3/espolston/header_drought.txt -o /scratch/midway3/espolston/fixed_droughtmerged.vcf /scratch/midway3/espolston/merged.vcf
+#i > edit Number = R w/ AD and Number = A w/ AO and Number = A w/ QA to Number =. > esc > :wq
 
-#bgzip and index new files
+#reheader, bgzip and index new files
 sbatch ./fix.sbatch
 
 ##Run merge of drought and common garden exps vcfs (job name = drought_common)
