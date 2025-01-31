@@ -8,7 +8,7 @@ tabix -p vcf /scratch/midway3/espolston/merged.vcf.gz
 conda activate /project/kreiner/espolston
 bcftools view -h /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf > /scratch/midway3/espolston/header.txt
 vim /scratch/midway3/espolston/header.txt
-#i > edit Number = R to Number =. > esc > :wq
+#i > edit Number = R w/ AD and Number = A w/ AO to Number =. > esc > :wq
 # replace the header
 bcftools reheader -h /scratch/midway3/espolston/header.txt -o /project/kreiner/pairedenv_commongarden/fixed_commongarden_allfiltsnps_193_hap2.vcf /project/kreiner/pairedenv_commongarden/commongarden_allfiltsnps_193_hap2.vcf
 cp /project/kreiner/pairedenv_commongarden/fixed_commongarden_allfiltsnps_193_hap2.vcf /scratch/midway3/espolston/
@@ -18,7 +18,7 @@ cp /project/kreiner/pairedenv_commongarden/fixed_commongarden_allfiltsnps_193_ha
 conda activate /project/kreiner/espolston
 bcftools view -h /scratch/midway3/espolston/merged.vcf > /scratch/midway3/espolston/header_drought.txt
 vim /scratch/midway3/espolston/header_drought.txt
-#i > edit Number = R to Number =. > esc > :wq
+#i > edit Number = R w/ AD and Number = A w/ AO to Number =. > esc > :wq
 # replace the header
 bcftools reheader -h /scratch/midway3/espolston/header_drought.txt -o /scratch/midway3/espolston/fixed_droughtmerged.vcf /scratch/midway3/espolston/merged.vcf
 
@@ -28,8 +28,9 @@ sbatch ./fix.sbatch
 ##Run merge of drought and common garden exps vcfs (job name = drought_common)
 sbatch ./1_merged.sbatch
 
-
 #HERE - make a file that edits fam file 
+#Downloaded pheno info from spreadsheets
+#/Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Data/Common_Garden_Seq_Stats-Genome_Size_ests.tsv
 
 ##Run CMH on both merged and only common garden (job name = drought_common_plink)
 sbatch ./2_cmhscan.sbatch
