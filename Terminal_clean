@@ -22,10 +22,11 @@ sbatch ./fix.sbatch
 ##Run merge of drought and common garden exps vcfs (job name = drought_common)
 sbatch ./1_merged.sbatch
 
-
 #Downloaded pheno info from spreadsheets
 #/Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Data/Common_Garden_Seq_Stats-more_meta.tsv
 
 ##Edit fam file and run CMH on both merged and only common garden (job name = drought_common_plink)
 sbatch ./2_cmhscan.sbatch
 
+#Downloaded fam and cmh scan files to look into scan results
+"/Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Code/3_cmhresults.Rmd"
