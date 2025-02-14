@@ -28,9 +28,5 @@ sbatch ./1_merged.sbatch
 ##Edit fam file and run CMH on both merged and only common garden (job name = drought_common_plink)
 sbatch ./2_cmhscan.sbatch
 
-#Adding FDR correction to cmh files
-Rscript FDRfilter.R /scratch/midway3/espolston/commongarden_cmh.cmh .1
-Rscript FDRfilter.R /scratch/midway3/espolston/commongarden_drought_cmh.cmh .1
-
 #Downloaded fam and cmh scan files to look into scan results 
 "/Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Code/3_cmhresults.Rmd"
