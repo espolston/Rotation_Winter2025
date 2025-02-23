@@ -33,3 +33,5 @@ sbatch ./2_cmhscan.sbatch
 
 #Search for PPO
 grep -e Protoporphyrinogen -e PPO /Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Results/dcg_bedtools.txt /Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Results/cg_bedtools.txt > /Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Results/PPO_grep.txt
+grep -e Protoporphyrinogen -e PPO /Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Results/dcg.05_bedtools.txt /Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Results/cg.05_bedtools.txt > /Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Results/PPO_grep.05.txt
+
