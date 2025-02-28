@@ -38,7 +38,8 @@ grep -e Protoporphyrinogen -e PPO /Users/libbypolston/Desktop/UChicago/Kreiner_l
 #head of this grep is: Info Scaffold Start Stop n_snp snp_min snp_max rank_min rank_max
 grep -e Protoporphyrinogen -e PPO /Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Results/cg_intersectFDRp.txt /Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Results/dcg_intersectFDRp.txt > /Users/libbypolston/Desktop/UChicago/Kreiner_lab/Coding/Rotation_Winter2025/Results/PPO_grepwRank.txt
 
-
+#signatures of selection on cluster
+sbatch ./4_selection.sbatch
 
 #In process of moving files to .vcf.gz and cmh files to /cds3/kreiner/newgenome_merged
 
